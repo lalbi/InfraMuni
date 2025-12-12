@@ -20,17 +20,10 @@ jobs:
         
     - name: Fix gradlew permissions and line endings
       run: |
-        echo "Corrigiendo permisos y finales de línea en gradlew..."
-        # 1. Asegura permisos de ejecución
+        sudo apt-get update -y && sudo apt-get install -y dos2unix
+        dos2unix gradlew gradlew.bat
         chmod +x gradlew
-        # 2. Convierte los finales de línea de CRLF a LF (eliminando el \r)
-        # El sed -i lo hace in-place (directamente en el archivo)
-        sed -i 's/\r$//' gradlew
-        echo "Finales de línea corregidos."
     
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-
     - name: Build with Gradle
       run: ./gradlew build
 
